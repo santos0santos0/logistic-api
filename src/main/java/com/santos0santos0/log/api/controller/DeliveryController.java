@@ -2,14 +2,12 @@ package com.santos0santos0.log.api.controller;
 
 import com.santos0santos0.log.api.assembler.DeliveryAssembler;
 import com.santos0santos0.log.api.model.DeliveryDTO;
-import com.santos0santos0.log.api.model.RecipientDTO;
 import com.santos0santos0.log.api.model.input.DeliveryInput;
 import com.santos0santos0.log.domain.model.Delivery;
 import com.santos0santos0.log.domain.repository.DeliveryRepository;
 import com.santos0santos0.log.domain.service.FinalizationDeliveryService;
 import com.santos0santos0.log.domain.service.RequestDeliveryService;
 import lombok.AllArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

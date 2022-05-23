@@ -1,14 +1,11 @@
 package com.santos0santos0.log.domain.model;
 
-import com.santos0santos0.log.domain.ValidationGroups;
 import com.santos0santos0.log.domain.exception.DomainException;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.groups.ConvertGroup;
-import javax.validation.groups.Default;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
