@@ -10,6 +10,8 @@ import javax.validation.groups.ConvertGroup;
 import javax.validation.groups.Default;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -22,7 +24,6 @@ public class Delivery {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ConvertGroup(from = Default.class, to = ValidationGroups.ClientId.class)
     @ManyToOne
     private Client client;
 
@@ -31,6 +32,9 @@ public class Delivery {
 
     private BigDecimal tax;
 
+    @OneToMany(mappedBy = "delivery", cascade = CascadeType.ALL)
+    private List<Occurrence> occurrences = new ArrayList<>();
+
     @Enumerated(EnumType.STRING)
     private StatusDelivery status;
 
@@ -38,4 +42,14 @@ public class Delivery {
 
     private OffsetDateTime dateFinalization;
 
+    public Occurrence addOccurrence(String description) {
+        Occurrence occurrence = new Occurrence();
+        occurrence.setDescription(description);
+        occurrence.setDateRecord(OffsetDateTime.now());
+        occurrence.setDelivery(this);
+
+        this.getOccurrences().add(occurrence);
+
+        return occurrence;
+    }
 }

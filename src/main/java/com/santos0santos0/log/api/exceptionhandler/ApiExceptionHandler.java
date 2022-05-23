@@ -1,6 +1,7 @@
 package com.santos0santos0.log.api.exceptionhandler;
 
 import com.santos0santos0.log.domain.exception.DomainException;
+import com.santos0santos0.log.domain.exception.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -44,6 +45,17 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         exceptionDefault.setFields(fields);
 
         return handleExceptionInternal(ex, exceptionDefault, headers, status, request);
+    }
+
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<Object> handleEntityNotFound(EntityNotFoundException ex, WebRequest request) {
+        HttpStatus status = HttpStatus.NOT_FOUND;
+        ExceptionDefault exceptionDefault = new ExceptionDefault();
+        exceptionDefault.setStatus(status.value());
+        exceptionDefault.setDateTime(OffsetDateTime.now());
+        exceptionDefault.setTitle(ex.getMessage());
+
+        return handleExceptionInternal(ex, exceptionDefault, new HttpHeaders(), status, request);
     }
 
     @ExceptionHandler(DomainException.class)

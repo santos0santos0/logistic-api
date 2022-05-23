@@ -12,7 +12,7 @@ import java.time.OffsetDateTime;
 public class DeliveryDTO {
 
     private Long id;
-    private ClientResumeModel client;
+    private ClientResumeDTO client;
     private RecipientDTO recipient;
     private BigDecimal tax;
     private StatusDelivery status;
