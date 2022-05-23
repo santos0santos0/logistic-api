@@ -1,6 +1,7 @@
 package com.santos0santos0.log.domain.model;
 
 import com.santos0santos0.log.domain.ValidationGroups;
+import com.santos0santos0.log.domain.exception.DomainException;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -52,4 +53,22 @@ public class Delivery {
 
         return occurrence;
     }
+
+    public void finished() {
+        if (notCanFinished()) {
+            throw new DomainException("Delivery cannot be completed");
+        }
+
+        setStatus(StatusDelivery.FINISHED);
+        setDateFinalization(OffsetDateTime.now());
+    }
+
+    public boolean canFinished() {
+        return StatusDelivery.PENDING.equals(getStatus());
+    }
+
+    public boolean notCanFinished() {
+        return !canFinished();
+    }
+
 }

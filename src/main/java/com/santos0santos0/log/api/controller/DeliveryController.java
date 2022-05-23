@@ -6,6 +6,7 @@ import com.santos0santos0.log.api.model.RecipientDTO;
 import com.santos0santos0.log.api.model.input.DeliveryInput;
 import com.santos0santos0.log.domain.model.Delivery;
 import com.santos0santos0.log.domain.repository.DeliveryRepository;
+import com.santos0santos0.log.domain.service.FinalizationDeliveryService;
 import com.santos0santos0.log.domain.service.RequestDeliveryService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -23,6 +24,7 @@ public class DeliveryController {
 
     private DeliveryRepository deliveryRepository;
     private RequestDeliveryService requestDeliveryService;
+    private FinalizationDeliveryService finalizationDeliveryService;
     private DeliveryAssembler deliveryAssembler;
 
     @PostMapping
@@ -31,6 +33,12 @@ public class DeliveryController {
         Delivery newDelivery = deliveryAssembler.toEntity(deliveryInput);
         Delivery deliverySolicitation = requestDeliveryService.request(newDelivery);
         return deliveryAssembler.toModel(deliverySolicitation);
+    }
+
+    @PutMapping("/{id}/finalization")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void finalization(@PathVariable Long id) {
+        finalizationDeliveryService.finish(id);
     }
 
     @GetMapping
