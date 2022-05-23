@@ -16,6 +16,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +39,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         
         ExceptionDefault exceptionDefault = new ExceptionDefault();
         exceptionDefault.setStatus(status.value());
-        exceptionDefault.setDateTime(LocalDateTime.now());
+        exceptionDefault.setDateTime(OffsetDateTime.now());
         exceptionDefault.setTitle("Invalid fields. Verify fields and try again");
         exceptionDefault.setFields(fields);
 
@@ -50,7 +51,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         HttpStatus status = HttpStatus.BAD_REQUEST;
         ExceptionDefault exceptionDefault = new ExceptionDefault();
         exceptionDefault.setStatus(status.value());
-        exceptionDefault.setDateTime(LocalDateTime.now());
+        exceptionDefault.setDateTime(OffsetDateTime.now());
         exceptionDefault.setTitle(ex.getMessage());
 
         return handleExceptionInternal(ex, exceptionDefault, new HttpHeaders(), status, request);
